@@ -885,12 +885,15 @@ function showTooltip(d, mx, my) {
   // China note
   tt.querySelector(".tt-china-note").style.display = 'none';
 
-  // Position
+  // Position – use actual tooltip size so it never overflows on small screens
   const pad = 14;
+  const ttW = tt.offsetWidth;
+  const ttH = tt.offsetHeight;
   let tx = mx + pad, ty = my - pad;
-  if (tx + 400 > window.innerWidth) tx = mx - 400 - pad;
+  if (tx + ttW > window.innerWidth) tx = mx - ttW - pad;
+  if (tx < 10) tx = 10;
   if (ty < 10) ty = my + pad;
-  if (ty + 300 > window.innerHeight) ty = Math.max(10, my - 300);
+  if (ty + ttH > window.innerHeight) ty = Math.max(10, my - ttH);
   tt.style.left = tx + "px";
   tt.style.top = ty + "px";
   tt.classList.add("visible");
